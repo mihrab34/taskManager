@@ -17,22 +17,26 @@ exports.add = async(req, res) => {
   let response = makeResponse(201);
   const task = new Task(req.body)
   await task.save();
+  response.data = task;
   return res.status(response.status).json(response);
 };
 
-exports.edit = (req, res) => {
+exports.edit = async(req, res) => {
   let response = makeResponse();
+  const task = await Task.updateOne({_id: req.params.id}, req.body)
+  response.data = task;
   return res.status(response.status).json(response);
 };
 
-exports.getTask = (req, res) => {
+exports.getTask = async(req, res) => {
   let response = makeResponse();
-  const id = req.params.id
+  response.data = await Task.findById(req.params.id)
   return res.status(response.status).json(response);
 };
 
-exports.delete = (req, res) => {
+exports.delete = async(req, res) => {
   let response = makeResponse();
+  response.data = await Task.deleteOne({_id:req.params.id})
   return res.status(response.status).json(response);
 };
 
@@ -41,7 +45,15 @@ exports.clear = (req, res) => {
   return res.status(response.status).json(response);
 };
 
-exports.toggleCompleted = (req, res) => {
+exports.toggleCompleted = async(req, res) => {
   let response = makeResponse();
+  const task = await Task.findById(req.params.id)
+  if(task.completed) {
+    task.completed = false;
+  }else {
+    task.completed = true;
+  }
+  await task.save();
+  response.data = task;
   return res.status(response.status).json(response);
 };
