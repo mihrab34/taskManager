@@ -1,4 +1,6 @@
-APPLICATION NAME : Task Manager
+# Task Manager
+
+
 MODELS
 tasks
 task_date(Date), task(string), note(string), completed(boolean)
@@ -37,10 +39,11 @@ Props : task
 Event handlers : handleCompletedToggle(onChange)
 TaskAction
 Component tree
-App
-TaskList
-TaskNav
-TaskHeader
-Task
-TaskAction
-TaskForm
+1. App
+   I. TaskList
+   	* TaskNav
+   	* TaskHeader
+	* Task
+		* TaskAction
+   II. TaskForm
+	
