@@ -1,6 +1,6 @@
 const TaskNav = () => {
   return (
-    <nav className="p-5">
+    <nav className="pt-5">
       <ul className="nav justify-content-center align-items-center">
         <li className="nav-item border border-secondary">
           <button type="button" className="btn btn-light btn-lg ">
