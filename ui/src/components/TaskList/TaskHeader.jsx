@@ -11,7 +11,7 @@ const TaskHeader = () => {
           <input type="checkbox" className="" />
           <span className="p-2">Show All</span>
         </div>
-        <Link to="tasks/add" className="btn btn-success ml-5">
+        <Link to="/tasks/add" className="btn btn-success ml-5">
           Add Task
         </Link>
       </article>
