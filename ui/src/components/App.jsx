@@ -6,7 +6,7 @@ import TaskForm from './TaskForm';
 function App() {
   return (
     <section className="row">
-      <article className="col-md-6 offset-md-3 border border-dark">
+      <article className="col-md-6 offset-md-3 bg-light">
         <Router>
           <Switch>
             <Route path="/" exact>
