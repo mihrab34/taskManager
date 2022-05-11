@@ -32,5 +32,4 @@ export default class Task extends Component {
       </section>
     );
   }
-  //   const [tasks, setTask] = useState({ completed: false });
 }
