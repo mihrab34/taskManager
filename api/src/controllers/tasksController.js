@@ -10,7 +10,7 @@ const makeResponse = (status = 200) => ({
 exports.index = async(req, res) => {
   let response = makeResponse();
   response.data = await Task.find({})
-  return res.status(response.status).json(response.data);
+  return res.status(response.status).json(response);
 };
 
 exports.add = async(req, res) => {
