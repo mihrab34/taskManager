@@ -15,12 +15,12 @@ export default function TaskAction() {
         ></button>
         <ul className="dropdown-menu " aria-labelledby="btnGroupDrop1">
           <li className="p-2">
-            <button type="button" className="btn btn-outline-primary">
+            <button type="button" className="btn btn-primary">
               Edit
             </button>
           </li>
           <li className="p-2">
-            <button type="button" className="btn btn-outline-danger">
+            <button type="button" className="btn btn-danger">
               Delete
             </button>
           </li>
