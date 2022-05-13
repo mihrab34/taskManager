@@ -1,57 +1,92 @@
-import React, { Component } from 'react';
-import {withRouter, connectToApi} from '../lib/helper';
-
+import React, { Component } from "react";
+import { withRouter, connectToApi } from "../lib/helper";
 
 class TaskForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      task:{
+      task: {
         task: "",
         task_date: "",
         note: "",
-        completed: false
-      }
-    }
+        completed: false,
+      },
+    };
   }
 
-  handleChange =(event) => {
+  handleChange = (event) => {
     const value = event.target.value;
-    this.setState({...this.state, [event.target.name]:value})
-  }
+    this.setState({ ...this.state, [event.target.name]: value });
+  };
 
-  getFullDate=(date)=> {
-    const year = new Date(date).getFullYear();
-    let month = new Date(date).getMonth();
-    let day = new Date(date).getDate();
-    if(day <= 9 ) {
-       day = `0${day}`;
-    }
-    if (month <= 9) {
-      month = `0${month + 1}`;
-    }
-    return `${year}-${month}-${day}`;
-  } 
+  handleSubmit = async (event) => {
+    event.preventDefault();
+    const action = this.props.action;
+    const { id } = this.props.router.params;
 
-  async componentDidMount(){
+    switch (action) {
+      case "add":
+        await connectToApi("/tasks", "POST", this.state);
+        break;
+      case "edit":
+        await connectToApi("/tasks/" + id, "PUT", this.state);
+        break;
+      default:
+        break;
+    }
+  };
+
+  getFullDate = (date=null) => {
+    let task_date = "";
+    if(date) {
+      task_date = new Date(date);
+      const year = task_date.getFullYear();
+      let month = task_date.getMonth();
+      let day = task_date.getDate();
+      if (day <= 9) {
+        day = `0${day}`;
+      }
+      if (month <= 9) {
+        month = `0${month + 1}`;
+      }
+      return `${year}-${month}-${day}`;
+    }
+  };
+
+  async componentDidMount() {
     try {
       const { id } = this.props.router.params;
-      // if(this.props.action === 'edit'){
-        const response = await connectToApi("/tasks/" + id,);
+      if (this.props.action === "detail" || this.props.action === "edit") {
+        const response = await connectToApi("/tasks/" + id);
         if (response.success) {
           const task = { ...this.state.task, ...response.data };
-          this.setState({ task: task });
-        // }
+          this.setState({ task });
+        }
       }
     } catch (error) {
       console.log(error);
     }
   }
   render() {
-    const {task, task_date,note} = this.state.task;
+    
+    const { task, task_date, note } = this.state.task;
     return (
       <form className="pt-5">
+        <div className="mb-3">
+          <label htmlFor="task" className="form-label">
+            Task
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="task"
+            placeholder="Enter new Task"
+            name="task"
+            onChange={(e) => this.handleChange(e)}
+            value={task}
+          />
+        </div>
         <div className="mb-3">
           <label htmlFor="exampleFormControlInput1" className="form-label">
             Task Date
@@ -63,20 +98,6 @@ class TaskForm extends Component {
             name="task_date"
             onChange={(e) => this.handleChange(e)}
             value={this.getFullDate(task_date)}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="task" className="form-label">
-            Task
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="task"
-            placeholder="Task"
-            name="task"
-            onChange={(e) => this.handleChange(e)}
-            value={task}
           />
         </div>
         <div className="mb-3">
@@ -93,7 +114,11 @@ class TaskForm extends Component {
           ></textarea>
         </div>
         {this.props.action === "edit" || this.props.action === "add" ? (
-          <button type="submit" className="btn btn-success">
+          <button
+            type="submit"
+            className="btn btn-success"
+            onClick={this.handleSubmit}
+          >
             Save
           </button>
         ) : (
@@ -102,7 +127,6 @@ class TaskForm extends Component {
       </form>
     );
   }
-  
-};
+}
 
 export default withRouter(TaskForm);

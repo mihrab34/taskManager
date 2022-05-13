@@ -1,19 +1,29 @@
-import React, { Component} from 'react';
+import React, { Component } from "react";
 import TaskNav from "./TaskNav";
 import TaskHeader from "./TaskHeader";
 import Task from "./Task/Task";
 import { withRouter, connectToApi } from "../../lib/helper";
 
-class TaskList extends Component{
+class TaskList extends Component {
   state = {
-    tasks: []
+    tasks: [],
   };
 
-  async componentDidMount () {
-    const response = await connectToApi("/tasks");
-    if(response.success){
-      this.setState({tasks: response.data})
+  handleDelete = async (id) => {
+    const response = await connectToApi("/tasks/" + id, "DELETE");
+    if (response.success) {
+      this.getTasks();
     }
+  };
+
+  getTasks = async () => {
+    const response = await connectToApi("/tasks");
+    if (response.success) {
+      this.setState({ tasks: response.data });
+    }
+  };
+  async componentDidMount() {
+    this.getTasks();
   }
   render() {
     return (
@@ -21,15 +31,11 @@ class TaskList extends Component{
         <TaskNav />
         <TaskHeader />
         {this.state.tasks.map((task) => (
-          <Task 
-            key={task._id}
-            task={task}
-          />
+          <Task key={task._id} task={task} handleDelete={this.handleDelete} />
         ))}
       </>
     );
   }
-  
-};
+}
 
-export default TaskList;
+export default withRouter(TaskList);

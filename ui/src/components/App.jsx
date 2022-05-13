@@ -20,7 +20,7 @@ function App() {
             />
             <Route
               path="/tasks/:id"
-              element={<TaskForm action={""} />}
+              element={<TaskForm action={"detail"} />}
             />
           </Routes>
         </Router>
