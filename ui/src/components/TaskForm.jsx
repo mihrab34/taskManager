@@ -73,6 +73,11 @@ class TaskForm extends Component {
     const { task, task_date, note } = this.state.task;
     return (
       <form className="pt-5">
+        { this.props.action === "add" ? (
+          <h1 className="text-center ">Add Task</h1>
+        ) : this.props.action === "edit" ? (
+          <h1 className="text-center ">Edit Task</h1>
+        ) : ""}
         <div className="mb-3">
           <label htmlFor="task" className="form-label">
             Task

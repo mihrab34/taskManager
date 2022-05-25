@@ -2,6 +2,7 @@ import TaskAction from "./TaskAction";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import {  connectToApi } from "../../../lib/helper";
+import './task.css';
 
 export default function Task (props) {
   const [task, SetTask] = useState(props.task);
@@ -15,12 +16,22 @@ export default function Task (props) {
   
     const { _id, task:title, completed} = task;
     return (
-      <section className="d-flex align-items-center justify-content-evenly border-bottom pb-5">
+      <section className="d-flex align-items-center justify-content-evenly border-bottom pb-5 pt-4">
         <div>
-          <input type="checkbox" onChange={(e) => handleChange(e, _id)} checked={completed}  />
+          <input
+            type="checkbox"
+            onChange={(e) => handleChange(e, _id)}
+            checked={completed}
+          />
         </div>
-        <Link to={`tasks/${_id}`}>{title}</Link>
-        {completed ? "" : <TaskAction taskId={_id} handleDelete={props.handleDelete} />}
+        <Link to={`tasks/${_id}`} className="text-center text-capitalize title">
+          {title}
+        </Link>
+        {completed ? (
+          ""
+        ) : (
+          <TaskAction taskId={_id} handleDelete={props.handleDelete} />
+        )}
       </section>
     );
 }

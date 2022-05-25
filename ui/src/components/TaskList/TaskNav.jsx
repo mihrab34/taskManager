@@ -1,11 +1,22 @@
+import { Link } from "react-router-dom";
 const TaskNav = () => {
   return (
     <nav className="pt-5">
       <ul className="nav justify-content-center align-items-center">
         <li className="nav-item border border-secondary">
+          <Link to="/" className="nav-link">
+            Home
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  );
+};
+{
+  /* <li className="nav-item border border-secondary">
           <button type="button" className="btn btn-light btn-lg ">
             Yesterday
-          </button>
+          </button> 
         </li>
         <li className="nav-item border border-secondary ">
           <div className="input-group input-group-lg">
@@ -24,10 +35,7 @@ const TaskNav = () => {
           <button type="button" className="btn btn-light btn-lg ">
             Tomorrow
           </button>
-        </li>
-      </ul>
-    </nav>
-  );
-};
+        </li> */
+}
 
 export default TaskNav;

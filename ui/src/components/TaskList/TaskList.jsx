@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import TaskNav from "./TaskNav";
 import TaskHeader from "./TaskHeader";
 import Task from "./Task/Task";
 import { withRouter, connectToApi } from "../../lib/helper";
@@ -27,13 +26,13 @@ class TaskList extends Component {
   }
   render() {
     return (
-      <>
-        <TaskNav />
+      <main className="d-flex flex-column justify-content-center">
+        {/* <TaskNav /> */}
         <TaskHeader />
         {this.state.tasks.map((task) => (
           <Task key={task._id} task={task} handleDelete={this.handleDelete} />
         ))}
-      </>
+      </main>
     );
   }
 }
