@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express')
 const cors = require('cors');
 const app = express();
@@ -9,6 +10,6 @@ const taskRouter = require('./src/routes/tasksRoute')
 app.use('/api/tasks', taskRouter);
 
 
-app.listen(5000, ()=> {
+app.listen(process.env.PORT || 5000, ()=> {
     console.log('Listening on port 5000');
 })

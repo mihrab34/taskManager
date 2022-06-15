@@ -1,14 +1,14 @@
 {
-  "name": "api",
+  "name": "task-app-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple task app using Mongodb, Express and Node",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Rahmat",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
@@ -18,5 +18,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
+  },
+  "engines": {
+    "node": "16.13.1"
   }
 }
