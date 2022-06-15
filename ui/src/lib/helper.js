@@ -10,7 +10,7 @@ export function withRouter(Component) {
 }
 
 export const connectToApi = async (endpoint, method = "GET", data = null) => {
-  const baseUrl = "http://localhost:5000/api";
+  const baseUrl = "https://task-app-api1.herokuapp.com/api";
   let options = {
     mode: "cors",
     method: method,
